@@ -1,8 +1,6 @@
 package pl.edu.agh.java.exercises.strings;
 
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.List;
 
 /**
  * Given a string, return the sum of the digits 0-9 that appear in the string, ignoring all other characters. Return 0

@@ -19,10 +19,13 @@ import java.util.stream.Stream;
 public class StringSumDigits {
     public int sumDigits(String str) {
     	try {
-    	  	Stream<Character> characterStream = str.chars().mapToObj(c -> (char) c);
-        	Stream<Character> digits = characterStream.filter(el -> Character.isDigit(el));
-        	Stream<Integer> numbers = digits.map(el -> Character.getNumericValue(el));
-        	return numbers.reduce(0, Integer::sum);
+    	  	Stream<Character> characterStream = str.chars()
+    	  											.mapToObj(c -> (char) c)	
+    	  											.filter(el -> Character.isDigit(el));
+        	Integer number = characterStream
+								.map(el -> Character.getNumericValue(el))
+								.reduce(0, Integer::sum);
+        	return number;
     	}  catch(UnsupportedOperationException e) {
     		throw new UnsupportedOperationException();
     	}

@@ -12,22 +12,14 @@ package pl.edu.agh.java.exercises.strings;
 public class StringSameEnds {
     public String sameEnds(String string) {
     	try {
-    		int middle = 0;
-    		String beginning = new String();
-    		String end = new String();
-    		if(string.length() % 2 == 0) {
-    			middle = string.length() / 2;
-        		end = string.substring(middle);
-    		} else {
-    			middle = (int) Math.floor((string.length() / 2));
-        		end = string.substring(middle + 1);
-    		}
-    		beginning = string.substring(0, middle);    		
+    		int cutPoint =  (int) Math.floor((string.length() / 2));
+    		String beginning = string.substring(0, cutPoint); 
+    		String end = string.substring(cutPoint);
     		String solution = new String();
 
     		for (int i=1; i<=beginning.length(); i++) {
     			String stringToCheck = beginning.substring(0, i);
-    			if(end.contains(stringToCheck) && end.indexOf(stringToCheck) == end.length() - i) {
+    			if(end.contains(stringToCheck) && end.lastIndexOf(stringToCheck) == end.length() - i) {
     				solution = stringToCheck;   	
     			}
     		}    		

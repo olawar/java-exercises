@@ -11,21 +11,19 @@ package pl.edu.agh.java.exercises.strings;
  */
 public class StringSameEnds {
     public String sameEnds(String string) {
-    	try {
-    		int cutPoint =  (int) Math.floor((string.length() / 2));
-    		String beginning = string.substring(0, cutPoint); 
-    		String end = string.substring(cutPoint);
-    		String solution = new String();
 
-    		for (int i=1; i<=beginning.length(); i++) {
-    			String stringToCheck = beginning.substring(0, i);
-    			if(end.contains(stringToCheck) && end.lastIndexOf(stringToCheck) == end.length() - i) {
-    				solution = stringToCheck;   	
-    			}
-    		}    		
-    		return solution;   		
-    	}  catch(UnsupportedOperationException e) {
-    		throw new UnsupportedOperationException();
-    	}
+		int cutPoint =  (int) Math.floor((string.length() / 2));
+		String beginning = string.substring(0, cutPoint); 
+		String end = string.substring(cutPoint);
+		String solution = new String();
+
+		for (int i=1; i<=beginning.length(); i++) {
+			String stringToCheck = beginning.substring(0, i);
+			if(end.contains(stringToCheck) && end.lastIndexOf(stringToCheck) == end.length() - i) {
+				solution = stringToCheck;   	
+			}
+		}    		
+		return solution;   		
+
     }
 }

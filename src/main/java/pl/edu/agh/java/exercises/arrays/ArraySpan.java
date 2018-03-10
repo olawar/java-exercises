@@ -1,5 +1,10 @@
 package pl.edu.agh.java.exercises.arrays;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * Consider the leftmost and righmost appearances of some value in an array.
  * We'll say that the "span" is the number of elements between the two
@@ -15,6 +20,13 @@ package pl.edu.agh.java.exercises.arrays;
  */
 public class ArraySpan {
 	public int maxSpan(int[] array) {
-		throw new UnsupportedOperationException();
+		List<Integer> intList = Arrays.stream(array).boxed().collect(Collectors.toList()); 
+		int temp = 0;
+		int result = 0;
+		for(int i = 0; i < intList.size(); i++) {
+			temp =  intList.lastIndexOf(array[i]) - intList.indexOf(array[i]) + 1;
+			result = temp > result ? temp : result;
+		}
+		return result;
 	}
 }

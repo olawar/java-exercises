@@ -3,7 +3,6 @@ package pl.edu.agh.java.exercises.arrays;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Consider the leftmost and righmost appearances of some value in an array.

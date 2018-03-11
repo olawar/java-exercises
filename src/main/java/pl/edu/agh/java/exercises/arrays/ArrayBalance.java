@@ -1,6 +1,8 @@
 package pl.edu.agh.java.exercises.arrays;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Given an array, return true if there is a place to split the array so that
@@ -14,60 +16,39 @@ import java.util.Arrays;
  */
 public class ArrayBalance {
 	public boolean canBalance(int[] array) {
-				
-		int cutPoint =  (int) Math.floor((array.length / 2));
-		boolean isEqual = array.length % 2 == 0;
-		int[] beginning = Arrays.copyOfRange(array, 0, cutPoint);
-		int[] end = Arrays.copyOfRange(array, (isEqual ? cutPoint : cutPoint+1), array.length);
-		
-		if(!isBalance(beginning, end)) {
-			for(int i=0; i<beginning.length; i++) {
-				int temp=beginning[i];
-					
-				for(int j=0; j<end.length; j++) {
-					beginning[i] = end[j];
-					end[j] = temp;
-					if(isBalance(beginning, end)) {
-						return true;
-					}
-				}
-			}
-			
-			if (!isEqual && array.length > 1) {
-				for(int i=0; i<beginning.length; i++) {
-					int temp=beginning[i];
-							
-					int ignore = array[cutPoint];
-					beginning[i] = ignore;					
-					
-					if(!isBalance(beginning, end)) {
-						for(int k=0; k<end.length; k++) {
-							beginning[i] = end[k];
-							end[k] = ignore;
-							if(!isBalance(beginning, end)) {
-								beginning[i] = temp;
-								end[k] = ignore;
-								if(isBalance(beginning, end) ) {
-									return true;
-								};
-							}
-						}
-					} else {
-						return true;
-					}				
-				} 
-			} 
-			return false;
-		} 
-		return true;
 
+		boolean isEven = array.length % 2 == 0;		
+		int totalSum =  Arrays.stream(array).reduce(0, Integer::sum);
+		Arrays.sort(array);
+		List<Integer> intList = Arrays.stream(array).boxed().collect(Collectors.toList());
+		
+		if(isEven) {
+			return isBalance(intList, totalSum);			
+		} else {			
+			for(int i=0; i<intList.size(); i++) {	
+				List<Integer> tempList = Arrays.stream(array).boxed().collect(Collectors.toList());
+				tempList.remove(i); 
+				totalSum = tempList.stream().reduce(0, Integer::sum);
+				if (isBalance(tempList, totalSum)) {
+					return true;
+				}		 
+			}
+		}
+		return false;
 	}
 	
-	private Boolean isBalance(int[] array1, int[] array2) {
-	
-		int sum1 = Arrays.stream(array1).reduce(0, Integer::sum);
-		int sum2 = Arrays.stream(array2).reduce(0, Integer::sum);		
-		return sum1 == sum2;
-		
+	private Boolean isBalance(List<Integer> intList, int totalSum) {
+		if (totalSum % 2 != 0) {
+			return false;
+		} else {
+			int partialSum = 0;
+			for (int i=intList.size()-1; i>=0; i--) {
+				if(intList.get(i) <= totalSum/2 - partialSum && intList.size() > intList.size()/2) {
+					partialSum += intList.get(i);
+					intList.remove(i);
+				}
+			}
+			return partialSum == intList.stream().reduce(0,  Integer::sum);
+		}		
 	}
 }

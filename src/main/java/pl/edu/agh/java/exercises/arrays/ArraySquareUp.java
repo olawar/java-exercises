@@ -26,7 +26,7 @@ public class ArraySquareUp {
 				if(c==i) {					
 					temp[c-1] = i;			
 				}
-				result[i*n - c] = temp[c-1];
+				result[i*n-c] = temp[c-1];
 			}
 		}
 		return result;

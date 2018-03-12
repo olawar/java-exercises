@@ -37,18 +37,19 @@ public class ArrayBalance {
 		return false;
 	}
 	
-	private Boolean isBalance(List<Integer> intList, int totalSum) {
-		if (totalSum % 2 != 0) {
+	private Boolean isBalance(List<Integer> listToCheck, int sumToCheck) {
+		if (sumToCheck % 2 != 0) {
 			return false;
 		} else {
 			int partialSum = 0;
-			for (int i=intList.size()-1; i>=0; i--) {
-				if(intList.get(i) <= totalSum/2 - partialSum && intList.size() > intList.size()/2) {
-					partialSum += intList.get(i);
-					intList.remove(i);
+			int partialSize = listToCheck.size()/2;
+			for (int i=listToCheck.size()-1; i>=0; i--) {
+				if(listToCheck.get(i) + partialSum <= sumToCheck/2 && listToCheck.size() > partialSize) {
+					partialSum += listToCheck.get(i);
+					listToCheck.remove(i);
 				}
 			}
-			return partialSum == intList.stream().reduce(0,  Integer::sum);
+			return partialSum == listToCheck.stream().reduce(0,  Integer::sum);
 		}		
 	}
 }
